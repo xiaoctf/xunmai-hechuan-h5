@@ -69,7 +69,8 @@ const scrollToHash = () => {
   root.style.scrollBehavior = previousBehavior;
   lockActiveUntilTarget(targetId);
   setActive(targetId);
-  document.title = `${target.dataset.title}｜寻脉合川`;
+  const title = target.dataset.title || target.closest(".screen")?.dataset.title || "寻脉合川";
+  document.title = `${title}｜寻脉合川`;
 };
 
 const observer = new IntersectionObserver(
