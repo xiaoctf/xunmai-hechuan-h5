@@ -34,7 +34,6 @@
     if (!baiduTongjiId || !path || !document.body) return;
 
     const url = new URL(path, window.location.href);
-    url.searchParams.set("beacon", String(Date.now()));
 
     const frame = document.createElement("iframe");
     frame.src = url.toString();
