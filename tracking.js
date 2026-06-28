@@ -41,6 +41,10 @@
     if (Array.isArray(window._hmt)) {
       // Baidu Tongji event tracking: category, action, label, value.
       window._hmt.push(["_trackEvent", detail.category || "purchase_link", detail.action, detail.product_name || "助农产品"]);
+      if (detail.baidu_pageview_path) {
+        // Fallback for accounts without Event Analysis permission: count virtual pages under 受访页面.
+        window._hmt.push(["_trackPageview", detail.baidu_pageview_path]);
+      }
     }
   };
 
@@ -63,6 +67,7 @@
       category: "product_section",
       action: "view",
       product_name: "助农产品",
+      baidu_pageview_path: "/xunmai-event/product-section-view",
       link_ready: links.some((link) => Boolean((link.dataset.purchaseUrl || "").trim())),
     });
   };
@@ -95,6 +100,7 @@
         product_id: productId,
         product_name: productName,
         product_channel: productChannel,
+        baidu_pageview_path: `/xunmai-event/purchase/${productId}`,
         link_ready: enabled,
         outbound_url: enabled ? link.href : "",
       });

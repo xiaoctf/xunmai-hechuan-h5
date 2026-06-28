@@ -57,6 +57,7 @@ http://localhost:8080/index.html
 - 内容浏览：百度统计、Google Analytics、Umami 或 `dataLayer` 统计产品屏浏览、页面停留和访问路径。
 - 购买意向：短链接后台或百度统计事件统计两类产品的购买入口点击。
 - 对接渠道：购买点击事件会带上 `product_id`、`product_name`、`product_channel`，便于后台区分桃片、萝卜干及对应渠道。
+- 受访页面兜底：若百度统计“事件分析”无权限，可在 `访问分析 -> 受访页面` 搜索 `/xunmai-event/` 查看虚拟页面计数。
 - 整体点击率：全站购买入口点击量 / 全站产品屏浏览量 × 100%。
 - 扫码转点击率：全站购买入口点击量 / 活码累计扫码次数 × 100%，可作为补充指标。
 - 成交转化：合作社或商家按周/月回填订单量、客单价和成交金额。
@@ -69,7 +70,11 @@ http://localhost:8080/index.html
 2. 打开后台生成的统计代码，复制 `hm.js?` 后面的站点 ID。
 3. 将站点 ID 填入 `analytics-config.js` 的 `baiduTongjiId`。
 4. `tracking.js` 会自动加载百度统计脚本，并通过 `_hmt.push(["_trackEvent", ...])` 分别上报产品区曝光和购买入口点击。
-5. 结题数据以百度统计、活码平台和合作社回填为准，不使用单台设备的本机数据。
+5. 如果账号不能查看“事件分析”，可改看百度统计 `访问分析 -> 受访页面` 中的虚拟页面：
+   - `/xunmai-event/product-section-view`：产品区曝光。
+   - `/xunmai-event/purchase/hechuan-taopian`：合川桃片购买入口点击。
+   - `/xunmai-event/purchase/qingcaoba-luobogan`：青草坝萝卜干购买入口点击。
+6. 结题数据以百度统计、活码平台和合作社回填为准，不使用单台设备的本机数据。
 
 结题可写成：
 
