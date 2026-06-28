@@ -1,10 +1,10 @@
 {
-  "base_url": "http://localhost:8080",
+  "base_url": "https://xiaoctf.github.io/xunmai-hechuan-h5",
   "entries": [
     {
       "name": "主二维码",
       "label": "寻脉合川非遗数字导览码",
-      "url": "http://localhost:8080/index.html",
+      "url": "https://xiaoctf.github.io/xunmai-hechuan-h5/index.html",
       "png": "assets/qr/main-guide.png",
       "svg": "assets/qr/main-guide.svg",
       "usage": "礼盒、礼袋、说明卡、展板、PPT"
@@ -12,7 +12,7 @@
     {
       "name": "路线二维码",
       "label": "合川非遗文旅路线码",
-      "url": "http://localhost:8080/index.html#route",
+      "url": "https://xiaoctf.github.io/xunmai-hechuan-h5/index.html#route",
       "png": "assets/qr/route.png",
       "svg": "assets/qr/route.svg",
       "usage": "路线图、海报、文旅展板"
@@ -20,7 +20,7 @@
     {
       "name": "产品二维码",
       "label": "合川非遗助农产品故事码",
-      "url": "http://localhost:8080/index.html#product",
+      "url": "https://xiaoctf.github.io/xunmai-hechuan-h5/index.html#product",
       "png": "assets/qr/product.png",
       "svg": "assets/qr/product.svg",
       "usage": "助农产品包装、礼盒说明卡"
@@ -28,7 +28,7 @@
     {
       "name": "问卷二维码",
       "label": "合川非遗文旅反馈码",
-      "url": "http://localhost:8080/index.html#survey",
+      "url": "https://xiaoctf.github.io/xunmai-hechuan-h5/index.html#survey",
       "png": "assets/qr/survey.png",
       "svg": "assets/qr/survey.svg",
       "usage": "活动现场、成果展示、H5页面按钮"

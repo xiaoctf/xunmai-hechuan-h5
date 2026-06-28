@@ -3,269 +3,128 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="description" content="寻脉合川：非遗文旅数字导览，承载合川非遗图文、匠人故事、文旅路线、助农产品与文创成果。" />
+    <meta name="description" content="寻脉合川非遗文旅数字导览入口，自动识别移动端或桌面端。" />
     <title>寻脉合川：非遗文旅数字导览</title>
-    <link rel="stylesheet" href="./styles.css" />
+    <style>
+      :root {
+        --paper: #f7f1e5;
+        --ink: #261d18;
+        --muted: #725f52;
+        --stone: #384743;
+        --cinnabar: #b43d2d;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        min-height: 100vh;
+        margin: 0;
+        display: grid;
+        place-items: center;
+        padding: 28px;
+        color: var(--ink);
+        background:
+          linear-gradient(90deg, rgba(38, 29, 24, 0.035) 1px, transparent 1px) 0 0 / 28px 28px,
+          linear-gradient(rgba(38, 29, 24, 0.03) 1px, transparent 1px) 0 0 / 28px 28px,
+          radial-gradient(circle at 16% 18%, rgba(180, 61, 45, 0.15), transparent 24rem),
+          radial-gradient(circle at 84% 80%, rgba(93, 141, 154, 0.2), transparent 24rem),
+          var(--paper);
+        font-family: "Noto Serif CJK SC", "Source Han Serif SC", "Songti SC", "SimSun", serif;
+      }
+
+      .gate {
+        width: min(100%, 760px);
+        padding: clamp(28px, 6vw, 64px);
+        border: 1px solid rgba(38, 29, 24, 0.18);
+        border-radius: 12px;
+        background: rgba(255, 253, 247, 0.72);
+        box-shadow: 0 24px 70px rgba(38, 29, 24, 0.14);
+      }
+
+      .eyebrow {
+        width: fit-content;
+        margin: 0 0 18px;
+        padding: 6px 11px;
+        border: 1px solid rgba(180, 61, 45, 0.34);
+        border-radius: 999px;
+        color: var(--cinnabar);
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      h1 {
+        margin: 0 0 14px;
+        font-size: clamp(42px, 9vw, 78px);
+        line-height: 1.05;
+        font-family: "STKaiti", "KaiTi", "FangSong", serif;
+      }
+
+      p {
+        margin: 0 0 24px;
+        color: var(--muted);
+        font-size: 17px;
+        line-height: 1.85;
+      }
+
+      .actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      a {
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 18px;
+        border-radius: 999px;
+        font-size: 15px;
+        font-weight: 800;
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .primary {
+        color: var(--paper);
+        background: var(--stone);
+      }
+
+      .secondary {
+        border: 1px solid rgba(38, 29, 24, 0.22);
+        color: var(--muted);
+        background: rgba(255, 253, 247, 0.62);
+      }
+    </style>
+    <script>
+      (() => {
+        const hash = window.location.hash || "";
+        const params = new URLSearchParams(window.location.search);
+        const forced = params.get("view");
+        const isMobile =
+          forced === "mobile" ||
+          (forced !== "desktop" &&
+            (window.matchMedia("(max-width: 760px)").matches ||
+              window.matchMedia("(pointer: coarse)").matches ||
+              /Android|iPhone|iPad|iPod|Mobile|Windows Phone/i.test(navigator.userAgent)));
+        const target = isMobile ? "mobile.html" : "desktop.html";
+        window.location.replace(`${target}${hash}`);
+      })();
+    </script>
   </head>
   <body>
-    <a class="skip-link" href="#intro">跳转到正文</a>
-
-    <main class="h5-shell" aria-label="寻脉合川非遗文旅数字导览">
-      <aside class="screen-rail" aria-label="页面导航">
-        <a class="rail-dot is-active" href="#home" aria-label="首页"></a>
-        <a class="rail-dot" href="#intro" aria-label="项目导语"></a>
-        <a class="rail-dot" href="#heritage" aria-label="非遗资源库"></a>
-        <a class="rail-dot" href="#artisan" aria-label="传承人故事"></a>
-        <a class="rail-dot" href="#craft" aria-label="技艺流程"></a>
-        <a class="rail-dot" href="#route" aria-label="文旅路线"></a>
-        <a class="rail-dot" href="#product" aria-label="助农产品"></a>
-        <a class="rail-dot" href="#creative" aria-label="文创展示"></a>
-        <a class="rail-dot" href="#credits" aria-label="团队成果与落款"></a>
-      </aside>
-
-      <section id="home" class="screen hero-screen" data-title="首页主视觉">
-        <div class="hero-poster" aria-hidden="true">
-          <div class="sun-seal">合川</div>
-          <div class="mountain-line line-one"></div>
-          <div class="mountain-line line-two"></div>
-          <div class="river-ribbon"></div>
-          <div class="gate-mark"></div>
-          <div class="craft-card card-left">非遗<br />手作</div>
-          <div class="craft-card card-right">乡味<br />助农</div>
-        </div>
-        <div class="screen-inner hero-inner">
-          <p class="eyebrow">线下文创包装 × 线上文化深承载</p>
-          <h1>寻脉合川</h1>
-          <p class="hero-subtitle">非遗文旅数字导览</p>
-          <p class="hero-copy">
-            扫码走进合川地方文化：看见非遗技艺、听见匠人故事、串起文旅路线，也把乡土产品讲成有温度的故事。
-          </p>
-          <div class="hero-actions" aria-label="快捷入口">
-            <a class="primary-action" href="#heritage">进入导览</a>
-            <a class="ghost-action" href="#route">查看路线</a>
-          </div>
-        </div>
-      </section>
-
-      <section id="intro" class="screen intro-screen" data-title="项目导语">
-        <div class="screen-inner">
-          <p class="eyebrow">项目主线</p>
-          <h2>让地方文化从“被展示”走向“能参与、能传播、能助农”</h2>
-          <p>
-            本页承载的是青耕文脉实践队数字化展示板块：线下礼盒、礼袋、说明卡、路线图和海报保持非遗文创美感，二维码负责把用户带到线上 H5，继续阅读完整的非遗图文、匠人故事、文旅路线和助农产品内容。
-          </p>
-          <div class="logic-grid" aria-label="整体设计逻辑">
-            <article>
-              <span>01</span>
-              <strong>线下轻展示</strong>
-              <p>包装只呈现主视觉、引导语和二维码，避免堆叠活动信息。</p>
-            </article>
-            <article>
-              <span>02</span>
-              <strong>线上深承载</strong>
-              <p>H5集中展示非遗内容、实践成果和可交付文创方案。</p>
-            </article>
-            <article>
-              <span>03</span>
-              <strong>底部明落款</strong>
-              <p>团队与“三下乡”成果归属统一放在页面底部说明。</p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section id="heritage" class="screen heritage-screen" data-title="非遗资源库">
-        <div class="screen-inner">
-          <p class="eyebrow">非遗资源库</p>
-          <h2>拟围绕合川代表性非遗与地方文化资源展开</h2>
-          <p>
-            页面展示项目以团队实地走访、传承人访谈和地方公开资料核验结果为准。当前先使用“待调研确认”口径，避免提前写死未经核验的非遗名录。
-          </p>
-          <div class="resource-board">
-            <article class="resource-card">
-              <span class="resource-icon">食</span>
-              <h3>传统食品</h3>
-              <p>记录合川老味道、制作场景、包装故事与伴手礼转化可能。</p>
-            </article>
-            <article class="resource-card">
-              <span class="resource-icon">艺</span>
-              <h3>传统手工艺</h3>
-              <p>整理材料、工具、工序、纹样和青年可视化表达方式。</p>
-            </article>
-            <article class="resource-card">
-              <span class="resource-icon">镇</span>
-              <h3>古镇民俗</h3>
-              <p>提取涞滩古镇、文峰古街等场景中的建筑与民俗符号。</p>
-            </article>
-            <article class="resource-card">
-              <span class="resource-icon">城</span>
-              <h3>历史文旅符号</h3>
-              <p>将钓鱼城历史故事、城门、石刻和山水轮廓转为导览内容。</p>
-            </article>
-          </div>
-          <p class="note-strip">非遗项目清单将在调研后更新：最终展示内容以实地材料为准。</p>
-        </div>
-      </section>
-
-      <section id="artisan" class="screen artisan-screen" data-title="传承人故事">
-        <div class="screen-inner split-screen">
-          <div>
-            <p class="eyebrow">传承人故事</p>
-            <h2>不只看见作品，也听见作品背后的人</h2>
-            <p>
-              H5将为传承人访谈预留故事位：记录技艺来源、日常制作、传承困境、年轻受众变化，以及团队在现场观察到的细节。
-            </p>
-            <blockquote>
-              “一门手艺要继续被看见，既需要老一辈守住，也需要年轻人学会用新的方式讲出来。”
-            </blockquote>
-          </div>
-          <div class="story-card" aria-label="匠人故事页面样式">
-            <span class="story-tag">访谈摘录</span>
-            <h3>匠人故事卡</h3>
-            <p>姓名、项目、技艺年限、代表作品、青年观察。</p>
-            <div class="story-lines">
-              <i></i>
-              <i></i>
-              <i></i>
-            </div>
-            <small>实地调研后替换为真实访谈内容</small>
-          </div>
-        </div>
-      </section>
-
-      <section id="craft" class="screen craft-screen" data-title="技艺流程">
-        <div class="screen-inner">
-          <p class="eyebrow">技艺流程</p>
-          <h2>把非遗讲得清楚，让游客看得懂、记得住</h2>
-          <div class="process-line">
-            <article>
-              <span>原料</span>
-              <p>记录材料来源、地域特点与传统选择标准。</p>
-            </article>
-            <article>
-              <span>制作</span>
-              <p>用图文拆解关键动作、工具和工序节奏。</p>
-            </article>
-            <article>
-              <span>成型</span>
-              <p>展示作品形态、纹样含义与地方审美。</p>
-            </article>
-            <article>
-              <span>包装</span>
-              <p>转化为礼盒、礼袋、说明卡和产品故事。</p>
-            </article>
-            <article>
-              <span>传播</span>
-              <p>通过二维码、短视频和路线图继续延展。</p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section id="route" class="screen route-screen" data-title="文旅路线">
-        <div class="screen-inner">
-          <p class="eyebrow">合川非遗文旅路线码入口</p>
-          <h2>一条路线串联历史、非遗、乡村与青年实践</h2>
-          <div class="route-map" role="img" aria-label="合川非遗文旅路线节点示意">
-            <div class="route-thread"></div>
-            <span style="--x:10%; --y:68%">博物馆</span>
-            <span style="--x:28%; --y:42%">文峰古街</span>
-            <span style="--x:48%; --y:24%">钓鱼城</span>
-            <span style="--x:66%; --y:48%">涞滩古镇</span>
-            <span style="--x:82%; --y:72%">乡村体验点</span>
-          </div>
-          <p>
-            路线图可用于海报、礼盒说明卡和文旅展板。扫码后进入本屏，查看推荐路线、节点故事和后续可替换的真实图片素材。
-          </p>
-        </div>
-      </section>
-
-      <section id="product" class="screen product-screen" data-title="助农产品">
-        <div class="screen-inner">
-          <p class="eyebrow">合川非遗助农产品故事码入口</p>
-          <h2>一盒合川味，一页匠人心</h2>
-          <div class="product-layout">
-            <article class="product-story">
-              <h3>产品故事</h3>
-              <p>围绕农产品来源、乡土记忆、制作过程和地方文化符号撰写宣传文案，让产品不只被看见价格，也被看见故事。</p>
-            </article>
-            <article class="product-story accent">
-              <h3>包装建议</h3>
-              <p>礼盒、礼袋和说明卡使用非遗纹样、钓鱼城/古镇元素和二维码入口，保留文创产品美感。</p>
-            </article>
-            <article class="product-story">
-              <h3>调研支撑</h3>
-              <p>通过游客和本地居民问卷收集价格接受度、文创偏好和购买渠道偏好，支持后续优化。</p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section id="creative" class="screen creative-screen" data-title="文创展示">
-        <div class="screen-inner">
-          <p class="eyebrow">文创成果转化</p>
-          <h2>二维码嵌入礼盒、礼袋、说明卡与冰箱贴背卡</h2>
-          <div class="mockup-row">
-            <article class="mockup gift">
-              <span>礼盒侧面</span>
-              <b>主二维码</b>
-              <small>扫码走进合川非遗故事</small>
-            </article>
-            <article class="mockup bag">
-              <span>礼袋背面</span>
-              <b>主二维码</b>
-              <small>保持正面主视觉纯净</small>
-            </article>
-            <article class="mockup card">
-              <span>说明卡背面</span>
-              <b>产品二维码</b>
-              <small>本方案由重庆邮电大学青耕文脉实践队设计</small>
-            </article>
-          </div>
-          <p>
-            实体物料不直接突出“三下乡”标识，团队成果属性通过说明卡背面小字和本页面底部正式落款体现。
-          </p>
-        </div>
-      </section>
-
-      <section id="credits" class="screen credits-screen" data-title="团队成果与落款">
-        <div class="screen-inner">
-          <p class="eyebrow">团队成果与落款</p>
-          <h2>可展示、可交付、可继续落地的数字化传播方案</h2>
-          <div class="deliverable-list">
-            <span>9屏H5静态展示页</span>
-            <span>四类二维码入口</span>
-            <span>非遗图文内容库</span>
-            <span>匠人故事文案</span>
-            <span>助农产品文案</span>
-            <span>文旅路线图</span>
-            <span>文创应用示意</span>
-            <span>数据统计口径</span>
-          </div>
-          <div id="survey" class="survey-panel" aria-label="问卷入口说明">
-            <h3>合川非遗文旅反馈码</h3>
-            <p>问卷二维码正式使用前，请替换为问卷星、腾讯问卷或学校指定平台链接。当前 H5 保留问卷入口说明，用于汇报展示和后续接入。</p>
-            <a class="primary-action compact" href="#credits">问卷链接待替换</a>
-          </div>
-          <footer class="formal-credit">
-            <p>青耕文脉实践队</p>
-            <p>“非遗文旅赋能乡村振兴”大学生暑期“三下乡”社会实践成果</p>
-            <p>2026年</p>
-            <small>
-              本页面为重庆邮电大学青耕文脉实践队“非遗文旅赋能乡村振兴”大学生暑期“三下乡”社会实践成果展示页面。页面内容基于团队实地调研、传承人访谈、群众走访与文创策划整理形成，仅用于公益展示、文化传播与成果汇报参考。
-            </small>
-          </footer>
-        </div>
-      </section>
+    <main class="gate">
+      <p class="eyebrow">正在识别访问设备</p>
+      <h1>寻脉合川</h1>
+      <p>
+        页面将自动进入适合当前设备的非遗文旅数字导览版本。若没有自动跳转，可手动选择移动端或桌面端。
+      </p>
+      <nav class="actions" aria-label="手动选择版本">
+        <a class="primary" href="./mobile.html">进入移动端</a>
+        <a class="secondary" href="./desktop.html">进入桌面端</a>
+      </nav>
     </main>
-
-    <nav class="bottom-nav" aria-label="二维码入口快捷导航">
-      <a href="#home">主码</a>
-      <a href="#route">路线码</a>
-      <a href="#product">产品码</a>
-      <a href="#survey">问卷码</a>
-    </nav>
-
-    <script src="./script.js"></script>
   </body>
 </html>
