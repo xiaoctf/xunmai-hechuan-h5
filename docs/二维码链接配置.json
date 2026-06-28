@@ -4,16 +4,16 @@
     {
       "name": "主二维码",
       "file": "main-guide",
-      "label": "寻脉合川非遗数字导览码",
+      "label": "寻脉合川非遗数字档案码",
       "url_template": "{BASE_URL}/index.html",
       "usage": "礼盒、礼袋、说明卡、展板、PPT"
     },
     {
       "name": "路线二维码",
       "file": "route",
-      "label": "合川非遗文旅路线码",
+      "label": "合川非遗实践路线码",
       "url_template": "{BASE_URL}/index.html#route",
-      "usage": "路线图、海报、文旅展板"
+      "usage": "实践路线图、海报、文旅展板"
     },
     {
       "name": "产品二维码",
@@ -25,7 +25,7 @@
     {
       "name": "问卷二维码",
       "file": "survey",
-      "label": "合川非遗文旅反馈码",
+      "label": "合川非遗试吃调研反馈码",
       "url_template": "{SURVEY_URL}",
       "temporary_url_template": "{BASE_URL}/index.html#survey",
       "usage": "活动现场、成果展示、H5页面按钮"
