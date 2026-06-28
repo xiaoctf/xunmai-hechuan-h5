@@ -1,8 +1,12 @@
 (() => {
   const links = [...document.querySelectorAll("[data-product-link]")];
   const countNodes = [...document.querySelectorAll("[data-local-click-count]")];
+  const viewNodes = [...document.querySelectorAll("[data-local-product-view-count]")];
+  const rateNodes = [...document.querySelectorAll("[data-local-click-rate]")];
+  const productSection = document.getElementById("product");
   const storageKey = "xunmai.productLinkClicks.v1";
   const campaign = "sxx_2026_hechuan_ich_agri";
+  let productViewRecorded = false;
 
   const readEvents = () => {
     try {
@@ -20,10 +24,20 @@
     }
   };
 
-  const updateLocalCount = () => {
-    const count = readEvents().length;
+  const updateLocalStats = () => {
+    const events = readEvents();
+    const clicks = events.filter((event) => event.event_type === "purchase_click" || !event.event_type).length;
+    const views = events.filter((event) => event.event_type === "product_view").length;
+    const rate = views > 0 ? Math.round((clicks / views) * 100) : 0;
+
     countNodes.forEach((node) => {
-      node.textContent = String(count);
+      node.textContent = String(clicks);
+    });
+    viewNodes.forEach((node) => {
+      node.textContent = String(views);
+    });
+    rateNodes.forEach((node) => {
+      node.textContent = `${rate}%`;
     });
   };
 
@@ -37,19 +51,20 @@
   };
 
   const emitAnalytics = (detail) => {
+    const eventName = detail.analytics_event || "purchase_link_click";
     window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({ event: "purchase_link_click", ...detail });
+    window.dataLayer.push({ event: eventName, ...detail });
 
     if (typeof window.gtag === "function") {
-      window.gtag("event", "purchase_link_click", detail);
+      window.gtag("event", eventName, detail);
     }
 
     if (Array.isArray(window._hmt)) {
-      window._hmt.push(["_trackEvent", "purchase_link", detail.action, detail.product_name]);
+      window._hmt.push(["_trackEvent", detail.category || "purchase_link", detail.action, detail.product_name || "助农产品"]);
     }
   };
 
-  const recordClick = (detail) => {
+  const recordEvent = (detail) => {
     const event = {
       ...detail,
       page_path: window.location.pathname,
@@ -58,7 +73,20 @@
     };
     writeEvents([...readEvents(), event]);
     emitAnalytics(event);
-    updateLocalCount();
+    updateLocalStats();
+  };
+
+  const recordProductView = () => {
+    if (productViewRecorded) return;
+    productViewRecorded = true;
+    recordEvent({
+      event_type: "product_view",
+      analytics_event: "product_section_view",
+      category: "product_section",
+      action: "view",
+      product_name: "助农产品",
+      link_ready: links.some((link) => Boolean((link.dataset.purchaseUrl || "").trim())),
+    });
   };
 
   links.forEach((link) => {
@@ -78,7 +106,10 @@
 
     link.addEventListener("click", (event) => {
       const enabled = Boolean(rawUrl);
-      recordClick({
+      recordEvent({
+        event_type: "purchase_click",
+        analytics_event: "purchase_link_click",
+        category: "purchase_link",
         action: enabled ? "outbound_click" : "link_request",
         product_id: productId,
         product_name: productName,
@@ -95,5 +126,22 @@
     });
   });
 
-  updateLocalCount();
+  if (productSection) {
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          if (entries.some((entry) => entry.isIntersecting)) {
+            recordProductView();
+            observer.disconnect();
+          }
+        },
+        { threshold: 0.35 },
+      );
+      observer.observe(productSection);
+    } else {
+      recordProductView();
+    }
+  }
+
+  updateLocalStats();
 })();

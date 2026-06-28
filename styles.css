@@ -814,7 +814,7 @@ blockquote {
 
 .tracking-note {
   display: grid;
-  gap: 5px;
+  gap: 10px;
   margin-top: 12px;
   padding: 12px;
   border: 1px dashed rgba(72, 54, 35, 0.32);
@@ -827,10 +827,46 @@ blockquote {
   font-size: 14px;
 }
 
-.tracking-note span {
+.tracking-dashboard {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.tracking-dashboard article {
+  min-height: 70px;
+  display: grid;
+  align-content: center;
+  gap: 4px;
+  padding: 10px 8px;
+  border: 1px solid rgba(72, 54, 35, 0.18);
+  border-radius: var(--radius);
+  background: rgba(239, 227, 206, 0.56);
+  text-align: center;
+}
+
+.tracking-dashboard b {
+  color: #7b2b1c;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.tracking-dashboard span,
+.tracking-metrics span {
   color: #5b4939;
   font-size: 12px;
   line-height: 1.55;
+}
+
+.tracking-metrics {
+  display: grid;
+  gap: 5px;
+}
+
+.tracking-note small {
+  color: #4d3b2d;
+  font-size: 12px;
+  line-height: 1.65;
 }
 
 .tracking-note:focus {

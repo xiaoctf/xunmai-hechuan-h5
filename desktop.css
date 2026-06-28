@@ -706,25 +706,60 @@ p {
 }
 
 .tracking-note {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 16px;
+  display: grid;
+  grid-template-columns: minmax(170px, 0.4fr) minmax(360px, 1fr);
+  gap: 14px 18px;
   margin-top: 18px;
-  padding: 14px 16px;
+  padding: 16px;
   border: 1px dashed rgba(43, 30, 20, 0.28);
   border-radius: 8px;
   background: rgba(239, 227, 206, 0.44);
 }
 
 .tracking-note strong {
+  grid-column: 1 / -1;
   color: #2c2018;
 }
 
-.tracking-note span,
+.tracking-dashboard {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.tracking-dashboard article {
+  min-height: 82px;
+  display: grid;
+  align-content: center;
+  gap: 5px;
+  padding: 12px;
+  border: 1px solid rgba(43, 30, 20, 0.16);
+  border-radius: 8px;
+  background: rgba(239, 227, 206, 0.58);
+  text-align: center;
+}
+
+.tracking-dashboard b {
+  color: #7b2b1c;
+  font-size: 26px;
+  line-height: 1;
+}
+
+.tracking-dashboard span,
+.tracking-metrics span,
 .tracking-note small {
   color: var(--muted);
   font-size: 14px;
   line-height: 1.6;
+}
+
+.tracking-metrics {
+  display: grid;
+  gap: 5px;
+}
+
+.tracking-note small {
+  grid-column: 1 / -1;
 }
 
 .tracking-note:focus {
@@ -835,6 +870,7 @@ p {
   .resource-grid,
   .product-grid,
   .purchase-list,
+  .tracking-note,
   .mockup-grid,
   .process {
     grid-template-columns: 1fr;
