@@ -785,6 +785,24 @@ blockquote {
   font-size: 16px;
 }
 
+.purchase-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.purchase-tags em {
+  padding: 4px 8px;
+  border: 1px solid rgba(123, 43, 28, 0.24);
+  border-radius: 999px;
+  color: #6f2a1c;
+  background: rgba(255, 246, 225, 0.42);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 900;
+}
+
 .purchase-link {
   min-height: 36px;
   display: inline-flex;
@@ -798,6 +816,14 @@ blockquote {
   box-shadow: 0 10px 22px rgba(23, 44, 39, 0.18);
   font-size: 13px;
   font-weight: 900;
+}
+
+.purchase-aid {
+  display: block;
+  margin-top: 8px;
+  color: #66513f;
+  font-size: 12px;
+  line-height: 1.65;
 }
 
 .purchase-link.is-disabled {

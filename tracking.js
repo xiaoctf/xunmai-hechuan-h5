@@ -73,6 +73,7 @@
     const rawUrl = (link.dataset.purchaseUrl || "").trim();
     const productId = link.dataset.productId || "unknown-product";
     const productName = link.dataset.productName || productId;
+    const productChannel = link.dataset.productChannel || "待接入渠道";
 
     if (rawUrl) {
       link.href = withTrackingParams(rawUrl, productId);
@@ -93,6 +94,7 @@
         action: enabled ? "outbound_click" : "link_request",
         product_id: productId,
         product_name: productName,
+        product_channel: productChannel,
         link_ready: enabled,
         outbound_url: enabled ? link.href : "",
       });
@@ -100,7 +102,7 @@
       if (!enabled) {
         event.preventDefault();
         link.dataset.clicked = "true";
-        link.textContent = "链接待接入，待接真实渠道";
+        link.textContent = "入口待接入，待接真实渠道";
         document.getElementById("tracking-note")?.focus({ preventScroll: true });
       }
     });

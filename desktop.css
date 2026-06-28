@@ -678,6 +678,24 @@ p {
   font-size: 22px;
 }
 
+.purchase-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.purchase-tags em {
+  padding: 5px 10px;
+  border: 1px solid rgba(123, 43, 28, 0.24);
+  border-radius: 999px;
+  color: #6f2a1c;
+  background: rgba(255, 246, 225, 0.42);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 900;
+}
+
 .purchase-link {
   min-height: 40px;
   display: inline-flex;
@@ -691,6 +709,14 @@ p {
   box-shadow: 0 14px 30px rgba(23, 44, 39, 0.2);
   font-size: 14px;
   font-weight: 900;
+}
+
+.purchase-aid {
+  display: block;
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.65;
 }
 
 .purchase-link.is-disabled {
