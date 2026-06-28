@@ -99,7 +99,7 @@ sections.forEach((section) => observer.observe(section));
 
 setActive(location.hash.slice(1) || "home");
 
-document.querySelectorAll('a[href^="#"]').forEach((link) => {
+document.querySelectorAll('a[href^="#"]:not([data-product-link])').forEach((link) => {
   link.addEventListener("click", (event) => {
     const targetId = link.getAttribute("href").slice(1);
     const target = document.getElementById(targetId);

@@ -33,7 +33,7 @@ const desktopObserver = new IntersectionObserver(
 
 desktopSections.forEach((section) => desktopObserver.observe(section));
 
-document.querySelectorAll('a[href^="#"]').forEach((link) => {
+document.querySelectorAll('a[href^="#"]:not([data-product-link])').forEach((link) => {
   link.addEventListener("click", (event) => {
     const target = document.getElementById(link.getAttribute("href").slice(1));
     if (!target) return;
