@@ -1,10 +1,21 @@
 const desktopSections = [...document.querySelectorAll("main section[id]")];
 const desktopLinks = [...document.querySelectorAll(".site-nav a")];
+const headerOffset = 72;
 
 const setDesktopActive = (id) => {
   desktopLinks.forEach((link) => {
     link.classList.toggle("is-active", link.getAttribute("href") === `#${id}`);
   });
+};
+
+const getSectionForTarget = (target) => target.closest("main section[id]") || target;
+
+const scrollToDesktopTarget = (target, behavior = "smooth") => {
+  const section = getSectionForTarget(target);
+  const top = section.getBoundingClientRect().top + window.scrollY - headerOffset;
+  window.scrollTo({ top, behavior });
+  setDesktopActive(section.id);
+  document.title = `${section.querySelector("h1,h2")?.textContent || "寻脉合川"}｜桌面端`;
 };
 
 const desktopObserver = new IntersectionObserver(
@@ -22,9 +33,23 @@ const desktopObserver = new IntersectionObserver(
 
 desktopSections.forEach((section) => desktopObserver.observe(section));
 
-if (location.hash) {
+document.querySelectorAll('a[href^="#"]').forEach((link) => {
+  link.addEventListener("click", (event) => {
+    const target = document.getElementById(link.getAttribute("href").slice(1));
+    if (!target) return;
+    event.preventDefault();
+    scrollToDesktopTarget(target, "smooth");
+    history.replaceState(null, "", `#${target.id}`);
+  });
+});
+
+const scrollToHash = () => {
+  if (!location.hash) return;
   const target = document.getElementById(location.hash.slice(1));
   if (target) {
-    setTimeout(() => target.scrollIntoView({ block: "start" }), 80);
+    setTimeout(() => scrollToDesktopTarget(target, "auto"), 40);
   }
-}
+};
+
+window.addEventListener("load", scrollToHash);
+window.addEventListener("hashchange", scrollToHash);
