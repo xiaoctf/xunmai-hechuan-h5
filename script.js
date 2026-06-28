@@ -67,7 +67,9 @@ const scrollToHash = () => {
   const top = target.getBoundingClientRect().top + window.scrollY;
   window.scrollTo({ top, behavior: "auto" });
   root.style.scrollBehavior = previousBehavior;
+  lockActiveUntilTarget(targetId);
   setActive(targetId);
+  document.title = `${target.dataset.title}｜寻脉合川`;
 };
 
 const observer = new IntersectionObserver(
