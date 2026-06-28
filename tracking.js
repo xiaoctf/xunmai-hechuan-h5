@@ -29,6 +29,32 @@
     return url.toString();
   };
 
+  const fireBaiduBeacon = (path) => {
+    const baiduTongjiId = String(analyticsConfig.baiduTongjiId || "").trim();
+    if (!baiduTongjiId || !path || !document.body) return;
+
+    const url = new URL(path, window.location.href);
+    url.searchParams.set("beacon", String(Date.now()));
+
+    const frame = document.createElement("iframe");
+    frame.src = url.toString();
+    frame.title = "Baidu analytics beacon";
+    frame.tabIndex = -1;
+    frame.dataset.baiduBeacon = path;
+    frame.setAttribute("aria-hidden", "true");
+    Object.assign(frame.style, {
+      position: "absolute",
+      width: "1px",
+      height: "1px",
+      overflow: "hidden",
+      opacity: "0",
+      pointerEvents: "none",
+      border: "0",
+    });
+    document.body.appendChild(frame);
+    window.setTimeout(() => frame.remove(), 15000);
+  };
+
   const emitAnalytics = (detail) => {
     const eventName = detail.analytics_event || "purchase_link_click";
     window.dataLayer = window.dataLayer || [];
@@ -46,6 +72,8 @@
         window._hmt.push(["_trackPageview", detail.baidu_pageview_path]);
       }
     }
+
+    fireBaiduBeacon(detail.baidu_beacon_path);
   };
 
   const recordEvent = (detail) => {
@@ -68,6 +96,7 @@
       action: "view",
       product_name: "助农产品",
       baidu_pageview_path: "/xunmai-event/product-section-view",
+      baidu_beacon_path: "./xunmai-event/product-section-view/",
       link_ready: links.some((link) => Boolean((link.dataset.purchaseUrl || "").trim())),
     });
   };
@@ -101,6 +130,7 @@
         product_name: productName,
         product_channel: productChannel,
         baidu_pageview_path: `/xunmai-event/purchase/${productId}`,
+        baidu_beacon_path: `./xunmai-event/purchase/${productId}/`,
         link_ready: enabled,
         outbound_url: enabled ? link.href : "",
       });
