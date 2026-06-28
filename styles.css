@@ -119,6 +119,14 @@ a {
   font-weight: 700;
 }
 
+.place-line {
+  margin: 0 0 8px;
+  color: #b43d2d !important;
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: 0;
+}
+
 h1,
 h2,
 h3,
@@ -128,11 +136,12 @@ p {
 
 h1 {
   margin-block-end: 4px;
-  color: #211713;
+  color: #efc993;
   font-family: "STKaiti", "KaiTi", "FangSong", serif;
-  font-size: clamp(58px, 17vw, 82px);
+  font-size: clamp(56px, 16vw, 78px);
   font-weight: 700;
   line-height: 0.96;
+  text-shadow: 0 2px 0 rgba(255, 253, 247, 0.72), 0 12px 30px rgba(139, 95, 57, 0.18);
 }
 
 h2 {
@@ -154,24 +163,24 @@ p {
 }
 
 .hero-screen {
-  color: var(--paper);
+  color: var(--ink);
   background:
-    linear-gradient(180deg, rgba(38, 29, 24, 0.16), rgba(38, 29, 24, 0.72)),
-    linear-gradient(135deg, #38534d, #6f4b32 52%, #2a231e);
+    linear-gradient(180deg, #1f322e 0 46%, var(--paper) 46% 100%);
 }
 
 .hero-screen .screen-inner {
   justify-content: flex-end;
+  padding: 0 18px 92px;
 }
 
 .hero-screen .eyebrow,
 .hero-screen p {
-  color: rgba(247, 241, 229, 0.92);
+  color: var(--muted);
 }
 
 .hero-subtitle {
-  margin-block-end: 20px;
-  color: #f7e4bf !important;
+  margin-block-end: 14px;
+  color: #5f8987 !important;
   font-size: 22px;
   font-weight: 700;
 }
@@ -184,7 +193,54 @@ p {
   position: absolute;
   inset: 0;
   overflow: hidden;
-  opacity: 0.95;
+}
+
+.hero-photo {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 56svh;
+  min-height: 360px;
+  background:
+    linear-gradient(180deg, rgba(27, 37, 34, 0.06), rgba(27, 37, 34, 0.5)),
+    url("./assets/images/diaoyu-fortress-commons.jpg") center / cover no-repeat;
+}
+
+.photo-shade {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(56svh - 76px);
+  height: 160px;
+  background: linear-gradient(180deg, rgba(247, 241, 229, 0), var(--paper) 55%, var(--paper));
+}
+
+.profile-card {
+  position: relative;
+  width: 100%;
+  min-height: 48svh;
+  padding: 32px 24px 24px;
+  border: 1px solid rgba(38, 29, 24, 0.12);
+  border-radius: 24px 24px 10px 10px;
+  background: rgba(255, 253, 247, 0.92);
+  box-shadow: 0 -16px 48px rgba(38, 29, 24, 0.16);
+  backdrop-filter: blur(10px);
+}
+
+.profile-badge {
+  position: absolute;
+  right: 22px;
+  top: -38px;
+  width: 76px;
+  height: 76px;
+  display: grid;
+  place-items: center;
+  border: 4px solid rgba(255, 253, 247, 0.92);
+  border-radius: 50%;
+  color: #fff6e7;
+  background: linear-gradient(135deg, #b43d2d, #5d8d9a);
+  box-shadow: 0 12px 28px rgba(38, 29, 24, 0.24);
+  font-size: 22px;
+  font-weight: 900;
 }
 
 .sun-seal {
@@ -315,9 +371,9 @@ p {
 }
 
 .ghost-action {
-  border: 1px solid rgba(247, 241, 229, 0.5);
-  color: var(--paper);
-  background: rgba(247, 241, 229, 0.1);
+  border: 1px solid rgba(38, 29, 24, 0.18);
+  color: var(--muted);
+  background: rgba(255, 253, 247, 0.52);
 }
 
 .compact {

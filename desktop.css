@@ -135,6 +135,13 @@ a {
   font-weight: 900;
 }
 
+.place-line {
+  margin: -4px 0 14px;
+  color: var(--cinnabar);
+  font-size: 16px;
+  font-weight: 900;
+}
+
 h1,
 h2,
 h3,
