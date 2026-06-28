@@ -2,6 +2,8 @@ const sections = [...document.querySelectorAll(".screen")];
 const railDots = [...document.querySelectorAll(".rail-dot")];
 const bottomLinks = [...document.querySelectorAll(".bottom-nav a")];
 const bottomNav = document.querySelector(".bottom-nav");
+let lockedTargetId = null;
+let unlockTimer = null;
 
 const bottomKeyBySection = {
   home: "home",
@@ -41,6 +43,19 @@ const setActive = (id) => {
   bottomNav?.style.setProperty("--active-index", activeIndex);
 };
 
+const lockActiveUntilTarget = (id) => {
+  lockedTargetId = id;
+  window.clearTimeout(unlockTimer);
+  unlockTimer = window.setTimeout(() => {
+    lockedTargetId = null;
+  }, 1100);
+};
+
+const releaseActiveLock = () => {
+  lockedTargetId = null;
+  window.clearTimeout(unlockTimer);
+};
+
 const scrollToHash = () => {
   const targetId = location.hash.slice(1);
   if (!targetId) return;
@@ -62,6 +77,12 @@ const observer = new IntersectionObserver(
       .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
 
     if (visible) {
+      if (lockedTargetId && visible.target.id !== lockedTargetId) {
+        return;
+      }
+      if (lockedTargetId === visible.target.id) {
+        releaseActiveLock();
+      }
       setActive(visible.target.id);
       document.title = `${visible.target.dataset.title}｜寻脉合川`;
     }
@@ -81,9 +102,10 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
     const target = document.getElementById(targetId);
     if (!target) return;
     event.preventDefault();
+    lockActiveUntilTarget(targetId);
+    setActive(targetId);
     target.scrollIntoView({ behavior: "smooth", block: "start" });
     history.replaceState(null, "", `#${targetId}`);
-    setActive(targetId);
   });
 });
 
