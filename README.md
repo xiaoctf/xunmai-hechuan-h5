@@ -74,7 +74,8 @@ http://localhost:8080/index.html
    - `/xunmai-event/product-section-view`：产品区曝光。
    - `/xunmai-event/purchase/hechuan-taopian`：合川桃片购买入口点击。
    - `/xunmai-event/purchase/qingcaoba-luobogan`：青草坝萝卜干购买入口点击。
-6. 结题数据以百度统计、活码平台和合作社回填为准，不使用单台设备的本机数据。
+6. 如刚发布后后台没有出现 `/xunmai-event/`，先用无痕窗口或清缓存重新打开页面，确保加载带版本号的 `tracking.js`。
+7. 结题数据以百度统计、活码平台和合作社回填为准，不使用单台设备的本机数据。
 
 结题可写成：
 
