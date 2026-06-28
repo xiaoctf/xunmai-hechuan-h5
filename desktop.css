@@ -741,8 +741,8 @@ p {
 
 .tracking-dashboard b {
   color: #7b2b1c;
-  font-size: 26px;
-  line-height: 1;
+  font-size: 22px;
+  line-height: 1.25;
 }
 
 .tracking-dashboard span,

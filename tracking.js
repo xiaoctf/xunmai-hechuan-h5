@@ -1,44 +1,23 @@
 (() => {
+  const analyticsConfig = window.XUNMAI_ANALYTICS || {};
   const links = [...document.querySelectorAll("[data-product-link]")];
-  const countNodes = [...document.querySelectorAll("[data-local-click-count]")];
-  const viewNodes = [...document.querySelectorAll("[data-local-product-view-count]")];
-  const rateNodes = [...document.querySelectorAll("[data-local-click-rate]")];
   const productSection = document.getElementById("product");
-  const storageKey = "xunmai.productLinkClicks.v1";
   const campaign = "sxx_2026_hechuan_ich_agri";
   let productViewRecorded = false;
 
-  const readEvents = () => {
-    try {
-      return JSON.parse(localStorage.getItem(storageKey) || "[]");
-    } catch {
-      return [];
-    }
-  };
+  const loadBaiduTongji = () => {
+    const baiduTongjiId = String(analyticsConfig.baiduTongjiId || "").trim();
+    if (!baiduTongjiId) return;
 
-  const writeEvents = (events) => {
-    try {
-      localStorage.setItem(storageKey, JSON.stringify(events.slice(-200)));
-    } catch {
-      // Storage can be unavailable in strict privacy modes; analytics hooks still run.
-    }
-  };
+    window._hmt = window._hmt || [];
+    if (document.querySelector(`script[data-baidu-tongji="${baiduTongjiId}"]`)) return;
 
-  const updateLocalStats = () => {
-    const events = readEvents();
-    const clicks = events.filter((event) => event.event_type === "purchase_click" || !event.event_type).length;
-    const views = events.filter((event) => event.event_type === "product_view").length;
-    const rate = views > 0 ? Math.round((clicks / views) * 100) : 0;
-
-    countNodes.forEach((node) => {
-      node.textContent = String(clicks);
-    });
-    viewNodes.forEach((node) => {
-      node.textContent = String(views);
-    });
-    rateNodes.forEach((node) => {
-      node.textContent = `${rate}%`;
-    });
+    const script = document.createElement("script");
+    script.async = true;
+    script.dataset.baiduTongji = baiduTongjiId;
+    script.src = `https://hm.baidu.com/hm.js?${encodeURIComponent(baiduTongjiId)}`;
+    const firstScript = document.getElementsByTagName("script")[0];
+    firstScript.parentNode.insertBefore(script, firstScript);
   };
 
   const withTrackingParams = (rawUrl, productId) => {
@@ -60,6 +39,7 @@
     }
 
     if (Array.isArray(window._hmt)) {
+      // Baidu Tongji event tracking: category, action, label, value.
       window._hmt.push(["_trackEvent", detail.category || "purchase_link", detail.action, detail.product_name || "助农产品"]);
     }
   };
@@ -71,9 +51,7 @@
       page_hash: window.location.hash,
       timestamp: new Date().toISOString(),
     };
-    writeEvents([...readEvents(), event]);
     emitAnalytics(event);
-    updateLocalStats();
   };
 
   const recordProductView = () => {
@@ -88,6 +66,8 @@
       link_ready: links.some((link) => Boolean((link.dataset.purchaseUrl || "").trim())),
     });
   };
+
+  loadBaiduTongji();
 
   links.forEach((link) => {
     const rawUrl = (link.dataset.purchaseUrl || "").trim();
@@ -120,7 +100,7 @@
       if (!enabled) {
         event.preventDefault();
         link.dataset.clicked = "true";
-        link.textContent = "链接待接入，已记录意向";
+        link.textContent = "链接待接入，待接真实渠道";
         document.getElementById("tracking-note")?.focus({ preventScroll: true });
       }
     });
@@ -142,6 +122,4 @@
       recordProductView();
     }
   }
-
-  updateLocalStats();
 })();

@@ -847,8 +847,8 @@ blockquote {
 
 .tracking-dashboard b {
   color: #7b2b1c;
-  font-size: 20px;
-  line-height: 1;
+  font-size: 15px;
+  line-height: 1.25;
 }
 
 .tracking-dashboard span,

@@ -54,23 +54,31 @@ http://localhost:8080/index.html
 可统计口径：
 
 - 扫码曝光：活码或二维码后台统计扫码人数、扫码次数、扫码地点和入口类型。
-- 内容浏览：第三方统计平台或 `dataLayer` 统计产品屏浏览、页面停留和访问路径。
-- 购买意向：短链接、百度统计、Google Analytics、Umami 或按钮事件统计两类产品的购买点击。
-- 点击率：购买入口点击量 / 产品屏浏览量。
+- 内容浏览：百度统计、Google Analytics、Umami 或 `dataLayer` 统计产品屏浏览、页面停留和访问路径。
+- 购买意向：短链接后台或百度统计事件统计两类产品的购买入口点击。
+- 整体点击率：全站购买入口点击量 / 全站产品屏浏览量 × 100%。
+- 扫码转点击率：全站购买入口点击量 / 活码累计扫码次数 × 100%，可作为补充指标。
 - 成交转化：合作社或商家按周/月回填订单量、客单价和成交金额。
 - 带动金额：回填成交件数 × 平均客单价，或商家实际成交金额。
-- 本机演示：页面会用 `localStorage` 记录当前设备的产品页浏览、购买点击和点击率，仅用于现场演示，不代表真实后台数据。
+
+百度统计接入方式：
+
+1. 在百度统计后台添加站点 `https://xiaoctf.github.io/xunmai-hechuan-h5/`。
+2. 打开后台生成的统计代码，复制 `hm.js?` 后面的站点 ID。
+3. 将站点 ID 填入 `analytics-config.js` 的 `baiduTongjiId`。
+4. `tracking.js` 会自动加载百度统计脚本，并通过 `_hmt.push(["_trackEvent", ...])` 分别上报产品区曝光和购买入口点击。
+5. 结题数据以百度统计、活码平台和合作社回填为准，不使用单台设备的本机数据。
 
 结题可写成：
 
 ```text
-二维码累计扫码 X 次，产品页浏览 X 次，引流至购买页面 X 次，点击率 X%。
+二维码累计扫码 X 次，产品页浏览 X 次，引流至购买页面 X 次，整体点击率 X%。
 合作社回填成交 X 单，预计带动销售 X 元。
 ```
 
 ## 生成二维码
 
-当前 `assets/qr/` 中是本地预览版二维码，指向 `http://localhost:8080`。GitHub Pages 链接确定后，在本目录运行：
+当前 `assets/qr/` 中已生成 GitHub Pages 正式二维码，指向 `https://xiaoctf.github.io/xunmai-hechuan-h5`。如入口链接或问卷链接发生变化，在本目录重新运行：
 
 ```powershell
 python scripts\generate_qr.py --base-url https://<GitHub用户名>.github.io/xunmai-hechuan-h5

@@ -219,19 +219,21 @@
               </article>
             </div>
             <div id="tracking-note" class="tracking-note" tabindex="-1">
-              <strong>助农数据追踪</strong>
-              <div class="tracking-dashboard" aria-label="本机演示数据">
-                <article><b data-local-product-view-count>0</b><span>产品页浏览</span></article>
-                <article><b data-local-click-count>0</b><span>购买点击</span></article>
-                <article><b data-local-click-rate>0%</b><span>点击率</span></article>
+              <strong>全站助农数据追踪</strong>
+              <div class="tracking-dashboard" aria-label="后台整体统计指标">
+                <article><b>扫码人数</b><span>活码后台</span></article>
+                <article><b>购买点击</b><span>百度统计/短链接</span></article>
+                <article><b>整体点击率</b><span>购买点击 ÷ 产品页浏览</span></article>
               </div>
               <div class="tracking-metrics">
-                <span>扫码曝光：活码后台记录扫码人数、扫码地点和入口类型。</span>
-                <span>内容浏览：统计产品屏浏览、停留时长和按钮点击前路径。</span>
-                <span>购买意向：分别记录桃片、萝卜干两个购买入口点击量。</span>
+                <span>扫码曝光：活码后台记录累计扫码人数、扫码次数、扫码地区和入口类型。</span>
+                <span>产品页浏览：百度统计记录进入文创助农产品区的全站浏览量。</span>
+                <span>购买点击：百度统计事件或短链接后台汇总桃片、萝卜干购买入口点击量。</span>
+                <span>整体点击率：全站购买按钮点击次数 ÷ 全站产品页浏览次数 × 100%。</span>
                 <span>成交回填：由传承人、农户或合作社按周/月回填订单量与销售额。</span>
               </div>
-              <small>结题可汇总：二维码累计扫码 X 次，引流至购买页面 X 次，点击率 X%，合作社回填成交 X 单，预计带动销售 X 元。</small>
+              <small>结题可汇总：二维码累计扫码 X 次，产品页浏览 X 次，购买入口点击 X 次，整体点击率 X%，合作社回填成交 X 单，预计带动销售 X 元。</small>
+              <small>百度统计代码接入后，页面会把产品区曝光和购买入口点击发送到后台；单台手机数据不作为结题统计。</small>
               <small>每购买一份，就为非遗传承与乡村产业贡献一份力量；购买链接直接对接当地渠道，团队不赚差价。</small>
             </div>
           </div>
@@ -304,6 +306,7 @@
     </nav>
 
     <script src="./script.js"></script>
+    <script src="./analytics-config.js"></script>
     <script src="./tracking.js"></script>
   </body>
 </html>
