@@ -1,14 +1,44 @@
 const sections = [...document.querySelectorAll(".screen")];
 const railDots = [...document.querySelectorAll(".rail-dot")];
 const bottomLinks = [...document.querySelectorAll(".bottom-nav a")];
+const bottomNav = document.querySelector(".bottom-nav");
 
-const navLinks = [...railDots, ...bottomLinks];
+const bottomKeyBySection = {
+  home: "home",
+  intro: "home",
+  heritage: "home",
+  artisan: "home",
+  craft: "home",
+  route: "route",
+  product: "product",
+  creative: "product",
+  credits: "survey",
+  survey: "survey",
+};
 
 const setActive = (id) => {
-  navLinks.forEach((link) => {
+  railDots.forEach((link) => {
     const isActive = link.getAttribute("href") === `#${id}`;
     link.classList.toggle("is-active", isActive);
   });
+
+  const bottomKey = bottomKeyBySection[id] || "home";
+  const activeIndex = Math.max(
+    0,
+    bottomLinks.findIndex((link) => link.getAttribute("href") === `#${bottomKey}`),
+  );
+
+  bottomLinks.forEach((link, index) => {
+    const isActive = index === activeIndex;
+    link.classList.toggle("is-active", isActive);
+    if (isActive) {
+      link.setAttribute("aria-current", "page");
+    } else {
+      link.removeAttribute("aria-current");
+    }
+  });
+
+  bottomNav?.style.setProperty("--active-index", activeIndex);
 };
 
 const scrollToHash = () => {
@@ -43,6 +73,8 @@ const observer = new IntersectionObserver(
 
 sections.forEach((section) => observer.observe(section));
 
+setActive(location.hash.slice(1) || "home");
+
 document.querySelectorAll('a[href^="#"]').forEach((link) => {
   link.addEventListener("click", (event) => {
     const targetId = link.getAttribute("href").slice(1);
@@ -52,6 +84,13 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
     target.scrollIntoView({ behavior: "smooth", block: "start" });
     history.replaceState(null, "", `#${targetId}`);
     setActive(targetId);
+  });
+});
+
+bottomLinks.forEach((link) => {
+  link.addEventListener("pointerdown", () => link.classList.add("is-pressing"));
+  ["pointerup", "pointercancel", "pointerleave"].forEach((eventName) => {
+    link.addEventListener(eventName, () => link.classList.remove("is-pressing"));
   });
 });
 
